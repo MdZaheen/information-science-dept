@@ -71,7 +71,7 @@ const HeroSlider = () => {
   };
 
   return (
-    <section className="relative h-screen overflow-hidden">
+    <section className="relative h-[60vh] sm:h-[70vh] md:h-[80vh] lg:h-screen overflow-hidden">
       <div className="relative w-full h-full">
         {slides.map((slide, index) => (
           <div
@@ -93,24 +93,24 @@ const HeroSlider = () => {
             
             {/* Content */}
             <div className="absolute inset-0 flex items-center justify-start">
-              <div className="container mx-auto px-4">
-                <div className="max-w-2xl text-white ml-8">
-                  <h1 className="text-5xl font-bold mb-6 animate-fade-in-up">
+              <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="max-w-2xl text-white ml-2 sm:ml-4 md:ml-8">
+                  <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 animate-fade-in-up leading-tight">
                     {slide.title}
                   </h1>
-                  <p className="text-xl mb-8 animate-fade-in-up animation-delay-200">
+                  <p className="text-sm sm:text-base md:text-lg lg:text-xl mb-6 sm:mb-8 animate-fade-in-up animation-delay-200 leading-relaxed">
                     {slide.description}
                   </p>
-                  <div className="flex space-x-4 animate-fade-in-up animation-delay-400">
+                  <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 animate-fade-in-up animation-delay-400">
                     <a
                       href={slide.readMoreLink}
-                      className="bg-blue-600 hover:bg-blue-700 px-8 py-3 rounded-lg font-semibold transition-colors duration-300"
+                      className="bg-blue-600 hover:bg-blue-700 px-4 sm:px-6 md:px-8 py-2 sm:py-3 rounded-lg font-semibold transition-colors duration-300 text-center text-sm sm:text-base"
                     >
                       Read More
                     </a>
                     <a
                       href={slide.contactLink}
-                      className="bg-transparent border-2 border-white hover:bg-white hover:text-gray-800 px-8 py-3 rounded-lg font-semibold transition-all duration-300"
+                      className="bg-transparent border-2 border-white hover:bg-white hover:text-gray-800 px-4 sm:px-6 md:px-8 py-2 sm:py-3 rounded-lg font-semibold transition-all duration-300 text-center text-sm sm:text-base"
                     >
                       Contact Us
                     </a>
@@ -125,36 +125,36 @@ const HeroSlider = () => {
       {/* Navigation Arrows */}
       <button
         onClick={goToPrevious}
-        className="absolute left-6 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 hover:bg-opacity-70 text-white p-3 rounded-full transition-all duration-300 hover:scale-110"
+        className="absolute left-2 sm:left-4 md:left-6 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 hover:bg-opacity-70 text-white p-2 sm:p-3 rounded-full transition-all duration-300 hover:scale-110"
         aria-label="Previous slide"
       >
-        <ChevronLeft size={24} />
+        <ChevronLeft size={20} className="sm:w-6 sm:h-6" />
       </button>
       
       <button
         onClick={goToNext}
-        className="absolute right-6 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 hover:bg-opacity-70 text-white p-3 rounded-full transition-all duration-300 hover:scale-110"
+        className="absolute right-2 sm:right-4 md:right-6 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 hover:bg-opacity-70 text-white p-2 sm:p-3 rounded-full transition-all duration-300 hover:scale-110"
         aria-label="Next slide"
       >
-        <ChevronRight size={24} />
+        <ChevronRight size={20} className="sm:w-6 sm:h-6" />
       </button>
 
       {/* Play/Pause Button */}
       <button
         onClick={togglePlayPause}
-        className="absolute bottom-6 right-6 bg-black bg-opacity-50 hover:bg-opacity-70 text-white p-3 rounded-full transition-all duration-300"
+        className="absolute bottom-4 sm:bottom-6 right-2 sm:right-4 md:right-6 bg-black bg-opacity-50 hover:bg-opacity-70 text-white p-2 sm:p-3 rounded-full transition-all duration-300"
         aria-label={isPlaying ? 'Pause slideshow' : 'Play slideshow'}
       >
-        {isPlaying ? <Pause size={20} /> : <Play size={20} />}
+        {isPlaying ? <Pause size={16} className="sm:w-5 sm:h-5" /> : <Play size={16} className="sm:w-5 sm:h-5" />}
       </button>
 
       {/* Dots Indicator */}
-      <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-2">
+      <div className="absolute bottom-4 sm:bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-2">
         {slides.map((_, index) => (
           <button
             key={index}
             onClick={() => goToSlide(index)}
-            className={`w-3 h-3 rounded-full transition-all duration-300 ${
+            className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full transition-all duration-300 ${
               index === currentSlide
                 ? 'bg-white scale-125'
                 : 'bg-white bg-opacity-50 hover:bg-opacity-70'

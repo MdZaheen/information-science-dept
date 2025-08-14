@@ -96,10 +96,10 @@ const NewsTicker = () => {
             {/* News Label */}
             <button
               onClick={openModal}
-              className="bg-red-600 text-white px-4 py-3 flex items-center space-x-2 hover:bg-red-700 transition-colors min-w-fit"
+              className="bg-red-600 text-white px-2 sm:px-4 py-2 sm:py-3 flex items-center space-x-1 sm:space-x-2 hover:bg-red-700 transition-colors min-w-fit"
             >
-              <Newspaper size={18} />
-              <span className="font-medium">News & Events</span>
+              <Newspaper size={16} className="sm:w-5 sm:h-5" />
+              <span className="font-medium text-xs sm:text-sm">News & Events</span>
             </button>
 
             {/* News Content */}
@@ -109,21 +109,21 @@ const NewsTicker = () => {
                 style={{ transform: `translateX(-${currentIndex * 100}%)` }}
               >
                 {newsItems.map((item, index) => (
-                  <div key={item.id} className="w-full flex-shrink-0 px-4 py-3">
+                  <div key={item.id} className="w-full flex-shrink-0 px-2 sm:px-4 py-2 sm:py-3">
                     <Link 
                       href={item.link}
-                      className="flex items-center space-x-3 hover:text-blue-600 transition-colors"
+                      className="flex items-center space-x-2 sm:space-x-3 hover:text-blue-600 transition-colors"
                     >
-                      <span className="bg-gray-100 text-gray-700 text-sm px-2 py-1 rounded min-w-fit">
+                      <span className="bg-gray-100 text-gray-700 text-xs sm:text-sm px-1 sm:px-2 py-1 rounded min-w-fit">
                         {index + 1}
                       </span>
                       {item.isNew && (
-                        <span className="bg-red-500 text-white text-xs px-2 py-1 rounded animate-pulse">
+                        <span className="bg-red-500 text-white text-xs px-1 sm:px-2 py-1 rounded animate-pulse">
                           NEW
                         </span>
                       )}
-                      <span className="text-sm text-gray-500 min-w-fit">{item.date}</span>
-                      <span className="font-medium text-gray-800 flex-1 truncate">
+                      <span className="text-xs sm:text-sm text-gray-500 min-w-fit hidden sm:block">{item.date}</span>
+                      <span className="font-medium text-gray-800 flex-1 truncate text-xs sm:text-sm">
                         {item.title}
                       </span>
                     </Link>
@@ -136,32 +136,32 @@ const NewsTicker = () => {
             <div className="flex items-center bg-gray-600 text-white">
               <button
                 onClick={openModal}
-                className="px-3 py-3 hover:bg-gray-700 transition-colors flex items-center space-x-1"
+                className="px-2 sm:px-3 py-2 sm:py-3 hover:bg-gray-700 transition-colors flex items-center space-x-1"
                 title="View All News"
               >
-                <Eye size={16} />
-                <span className="text-sm hidden sm:inline">Read All</span>
+                <Eye size={14} className="sm:w-4 sm:h-4" />
+                <span className="text-xs sm:text-sm hidden md:inline">Read All</span>
               </button>
               <button
                 onClick={handlePrevious}
-                className="px-3 py-3 hover:bg-gray-700 transition-colors"
+                className="px-2 sm:px-3 py-2 sm:py-3 hover:bg-gray-700 transition-colors"
                 title="Previous"
               >
-                <ChevronLeft size={16} />
+                <ChevronLeft size={14} className="sm:w-4 sm:h-4" />
               </button>
               <button
                 onClick={togglePause}
-                className="px-3 py-3 hover:bg-gray-700 transition-colors"
+                className="px-2 sm:px-3 py-2 sm:py-3 hover:bg-gray-700 transition-colors"
                 title={isPaused ? 'Play' : 'Pause'}
               >
-                {isPaused ? <Play size={16} /> : <Pause size={16} />}
+                {isPaused ? <Play size={14} className="sm:w-4 sm:h-4" /> : <Pause size={14} className="sm:w-4 sm:h-4" />}
               </button>
               <button
                 onClick={handleNext}
-                className="px-3 py-3 hover:bg-gray-700 transition-colors"
+                className="px-2 sm:px-3 py-2 sm:py-3 hover:bg-gray-700 transition-colors"
                 title="Next"
               >
-                <ChevronRight size={16} />
+                <ChevronRight size={14} className="sm:w-4 sm:h-4" />
               </button>
             </div>
           </div>

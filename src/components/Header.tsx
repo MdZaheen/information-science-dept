@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Menu, X, Sun, Moon, Plus, Minus, RotateCcw, User, Eye } from 'lucide-react';
@@ -9,6 +9,16 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [fontSize, setFontSize] = useState(16);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const toggleTheme = () => setIsDarkMode(!isDarkMode);
@@ -20,28 +30,28 @@ const Header = () => {
     <header className="w-full">
       {/* Top Header */}
       <div className="bg-gray-100 border-b">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-2 sm:px-4">
           <div className="flex justify-between items-center py-2">
-            <div className="flex items-center space-x-4">
-              <Link href="/login" className="flex items-center space-x-2 text-sm hover:text-blue-600">
-                <User size={16} />
-                <span>Login</span>
+            <div className="flex items-center space-x-2 sm:space-x-4">
+              <Link href="/login" className="flex items-center space-x-1 sm:space-x-2 text-xs sm:text-sm hover:text-blue-600">
+                <User size={14} className="sm:w-4 sm:h-4" />
+                <span className="hidden sm:inline">Login</span>
               </Link>
-              <Link href="#" className="text-sm hover:text-blue-600">ಕನ್ನಡ</Link>
-              <button className="flex items-center space-x-2 text-sm hover:text-blue-600">
-                <Eye size={16} />
-                <span>Visually Challenged</span>
+              <Link href="#" className="text-xs sm:text-sm hover:text-blue-600">ಕನ್ನಡ</Link>
+              <button className="flex items-center space-x-1 sm:space-x-2 text-xs sm:text-sm hover:text-blue-600">
+                <Eye size={14} className="sm:w-4 sm:h-4" />
+                <span className="hidden md:inline">Visually Challenged</span>
               </button>
             </div>
             
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-2 sm:space-x-4">
               {/* Theme Toggle */}
-              <button onClick={toggleTheme} className="p-2 rounded-full hover:bg-gray-200">
-                {isDarkMode ? <Sun size={18} /> : <Moon size={18} />}
+              <button onClick={toggleTheme} className="p-1 sm:p-2 rounded-full hover:bg-gray-200">
+                {isDarkMode ? <Sun size={16} className="sm:w-5 sm:h-5" /> : <Moon size={16} className="sm:w-5 sm:h-5" />}
               </button>
               
-              {/* Font Size Controls */}
-              <div className="flex items-center border rounded">
+              {/* Font Size Controls - Hidden on mobile */}
+              <div className="hidden sm:flex items-center border rounded">
                 <button onClick={decreaseFontSize} className="p-1 hover:bg-gray-200">
                   <Minus size={14} />
                 </button>
@@ -60,52 +70,60 @@ const Header = () => {
 
       {/* Main Header */}
       <div className="bg-white shadow-md">
-        <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between py-4">
-            {/* CM Logo */}
-            <div className="flex-shrink-0">
+        <div className="container mx-auto px-2 sm:px-4">
+          <div className="flex items-center justify-between py-2 sm:py-4">
+            {/* CM Logo - Hidden on mobile */}
+            <div className="hidden md:flex flex-shrink-0">
               <Image
                 src="/images/cm_logo.png"
                 alt="Chief Minister of Karnataka"
-                width={120}
-                height={80}
+                width={isMobile ? 80 : 120}
+                height={isMobile ? 60 : 80}
                 className="object-contain"
               />
             </div>
 
             {/* Department Info */}
-            <div className="flex-1 flex items-center justify-center space-x-6">
+            <div className="flex-1 flex items-center justify-center space-x-2 sm:space-x-4 md:space-x-6">
               <Image
                 src="/images/dept_logo.jpg"
                 alt="Department Logo"
-                width={80}
-                height={80}
+                width={isMobile ? 50 : 80}
+                height={isMobile ? 50 : 80}
                 className="object-contain"
               />
               <div className="text-center">
-                <h1 className="text-2xl font-bold text-gray-800 uppercase">
-                  Department of Information Science
+                <h1 className="text-sm sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-800 uppercase leading-tight">
+                  {isMobile ? 'Info Science Dept' : 'Department of Information Science'}
                 </h1>
-                <p className="text-lg text-gray-600">
-                  Government Polytechnic Kalaburagi
+                <p className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-600">
+                  {isMobile ? 'Govt Polytechnic Kalaburagi' : 'Government Polytechnic Kalaburagi'}
                 </p>
-                <p className="text-sm text-gray-500">
+                <p className="text-xs sm:text-sm text-gray-500 hidden sm:block">
                   Department of Collegiate and Technical Education
                 </p>
               </div>
-              <Image
-                src="/images/dept_center_logo.jpg"
-                alt="Center Logo"
-                width={80}
-                height={80}
-                className="object-contain rounded-full"
-              />
+              <div className="hidden sm:block">
+                <Image
+                  src="/images/dept_center_logo.jpg"
+                  alt="Center Logo"
+                  width={isMobile ? 50 : 80}
+                  height={isMobile ? 50 : 80}
+                  className="object-contain rounded-full"
+                />
+              </div>
             </div>
 
-            {/* HOD Photo - Placeholder */}
-            <div className="flex-shrink-0">
-              <div className="w-20 h-20 bg-gray-200 rounded-lg flex items-center justify-center">
-                <span className="text-xs text-gray-600">HOD Photo</span>
+            {/* HOD Photo - Hidden on mobile */}
+            <div className="hidden md:flex flex-shrink-0">
+              <div className="w-16 h-16 md:w-20 md:h-20 rounded-lg overflow-hidden border-2 border-gray-300">
+                <Image
+                  src="/images/hod image.png"
+                  alt="Head of Department"
+                  width={80}
+                  height={80}
+                  className="object-cover w-full h-full"
+                />
               </div>
             </div>
           </div>
